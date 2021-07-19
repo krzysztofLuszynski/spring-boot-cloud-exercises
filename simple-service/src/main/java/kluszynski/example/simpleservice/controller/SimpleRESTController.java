@@ -24,6 +24,13 @@ public class SimpleRESTController {
         return "Path variable (String): " + id;
     }
 
+    @GetMapping({"/pathVariableNumberEndpoint", "/pathVariableNumberEndpoint/{number}"})
+    public String pathVariableNumberEndpoint(@PathVariable(required = false) final Number number) {
+        LOGGER.info("PathVariable number value {}", number);
+
+        return "Path variable (Number): " + number;
+    }
+
     @GetMapping("/loggingEndpoint")
     public String loggingEndpoint() {
         LOGGER.trace("This is a trace message");

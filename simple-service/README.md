@@ -8,4 +8,6 @@ http://localhost:8080/simple-service/actuator
 http://localhost:8080/simple-service/noParametersEndpoint
 http://localhost:8080/simple-service/pathVariableStringEndpoint
 http://localhost:8080/simple-service/pathVariableStringEndpoint/12
+http://localhost:8080/simple-service/pathVariableNumberEndpoint
+http://localhost:8080/simple-service/pathVariableNumberEndpoint/12.67
 http://localhost:8080/simple-service/loggingEndpoint
