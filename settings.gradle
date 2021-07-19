@@ -1,1 +1,2 @@
 include 'simple-service'
+include 'simple-jpa-rest-repository'
