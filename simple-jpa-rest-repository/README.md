@@ -7,5 +7,5 @@ Basic REST service with all repository methods and H2 database.
 
 ```bash
 # actuator
-curl -v http://localhost:8080/simple-service/actuator
+curl -v http://localhost:8081/simple-jpa-rest-repository/actuator
 ```bash
