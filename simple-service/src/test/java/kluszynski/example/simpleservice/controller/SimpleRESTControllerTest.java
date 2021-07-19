@@ -76,6 +76,54 @@ public class SimpleRESTControllerTest {
         assertThat(response.getBody()).isEqualTo("Path variable (LocalDateTime): 2021-12-12T06:00:12");
     }
 
+    @Test
+    public void pathParameterStringEndpointNoVariable() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterStringEndpoint"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (String): null");
+    }
+
+    @Test
+    public void pathParameterStringEndpoint() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterStringEndpoint?stringParam=stringValue"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (String): stringValue");
+    }
+
+    @Test
+    public void pathParameterNumberEndpointNoVariable() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterNumberEndpoint"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (Number): null");
+    }
+
+    @Test
+    public void pathParameterNumberEndpoint() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterNumberEndpoint?numberParam=12.67"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (Number): 12.67");
+    }
+
+    @Test
+    public void pathParameterLocalDateTimeEndpointNoVariable() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterLocalDateTimeEndpoint"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (LocalDateTime): null");
+    }
+
+    @Test
+    public void pathParameterLocalDateTimeEndpoint() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("pathParameterLocalDateTimeEndpoint?localDateTimeParam=2021-12-12T06:00:12"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("Path parameter (LocalDateTime): 2021-12-12T06:00:12");
+    }
+
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {
         return new URL("http://localhost:" + port + "/simple-service/" + endpointPath).toString();
