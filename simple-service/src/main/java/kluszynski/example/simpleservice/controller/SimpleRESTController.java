@@ -51,6 +51,14 @@ public class SimpleRESTController {
         return "Path parameter (String): " + stringParam;
     }
 
+    @GetMapping({"/pathParameterNumberEndpoint", "/pathParameterNumberEndpoint"})
+    public String pathParameterNumberEndpoint(@PathParam("numberParam") final String numberParam) {
+        LOGGER.info("PathParameter numberParam value {}", numberParam);
+
+        return "Path parameter (Number): " + numberParam;
+    }
+
+
 
     @GetMapping("/loggingEndpoint")
     public String loggingEndpoint() {

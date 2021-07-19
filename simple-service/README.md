@@ -17,4 +17,7 @@ http://localhost:8080/simple-service/pathVariableLocalDateTimeEndpoint/2021-12-1
 
 http://localhost:8080/simple-service/pathParameterStringEndpoint
 http://localhost:8080/simple-service/pathParameterStringEndpoint?stringParam=hello
+http://localhost:8080/simple-service/pathParameterNumberEndpoint
+http://localhost:8080/simple-service/pathParameterNumberEndpoint?numberParam=12.67
+
 http://localhost:8080/simple-service/loggingEndpoint
