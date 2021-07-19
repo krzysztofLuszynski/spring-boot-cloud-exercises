@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -38,7 +37,9 @@ public class SimpleRESTController {
 
     @GetMapping({"/pathVariableLocalDateTimeEndpoint", "/pathVariableLocalDateTimeEndpoint/{localDateTime}"})
     public String pathVariableLocalDateTimeEndpoint(
-            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime localDateTime) {
+            @PathVariable(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            final LocalDateTime localDateTime) {
         LOGGER.info("PathVariable localDateTime value {}", localDateTime);
 
         return "Path variable (LocalDateTime): " + localDateTime;
@@ -52,13 +53,21 @@ public class SimpleRESTController {
     }
 
     @GetMapping({"/pathParameterNumberEndpoint", "/pathParameterNumberEndpoint"})
-    public String pathParameterNumberEndpoint(@PathParam("numberParam") final String numberParam) {
+    public String pathParameterNumberEndpoint(@PathParam("numberParam") final Number numberParam) {
         LOGGER.info("PathParameter numberParam value {}", numberParam);
 
         return "Path parameter (Number): " + numberParam;
     }
 
+    @GetMapping({"/pathParameterLocalDateTimeEndpoint", "/pathParameterLocalDateTimeEndpoint"})
+    public String pathParameterLocalDateTimeEndpoint(
+            @PathParam("localDateTimeParam")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            final String localDateTimeParam) {
+        LOGGER.info("PathParameter localDateTimeParam value {}", localDateTimeParam);
 
+        return "Path parameter (LocalDateTime): " + localDateTimeParam;
+    }
 
     @GetMapping("/loggingEndpoint")
     public String loggingEndpoint() {

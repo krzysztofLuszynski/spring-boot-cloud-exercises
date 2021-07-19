@@ -19,5 +19,7 @@ http://localhost:8080/simple-service/pathParameterStringEndpoint
 http://localhost:8080/simple-service/pathParameterStringEndpoint?stringParam=hello
 http://localhost:8080/simple-service/pathParameterNumberEndpoint
 http://localhost:8080/simple-service/pathParameterNumberEndpoint?numberParam=12.67
+http://localhost:8080/simple-service/pathParameterLocalDateTimeEndpoint
+http://localhost:8080/simple-service/pathParameterLocalDateTimeEndpoint?localDateTimeParam=2021-12-12T06:00:12
 
 http://localhost:8080/simple-service/loggingEndpoint
