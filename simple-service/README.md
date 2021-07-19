@@ -23,3 +23,12 @@ http://localhost:8080/simple-service/pathParameterLocalDateTimeEndpoint
 http://localhost:8080/simple-service/pathParameterLocalDateTimeEndpoint?localDateTimeParam=2021-12-12T06:00:12
 
 http://localhost:8080/simple-service/loggingEndpoint
+
+http://localhost:8080/simple-service/persons/12
+POST http://localhost:8080/simple-service/persons with:
+{
+firstName: "Jack",
+lastName: "White",
+birthDate: "2010-01-01T20:00:02",
+heightInCentimeters: 186
+}
