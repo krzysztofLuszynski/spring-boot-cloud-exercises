@@ -10,4 +10,6 @@ http://localhost:8080/simple-service/pathVariableStringEndpoint
 http://localhost:8080/simple-service/pathVariableStringEndpoint/12
 http://localhost:8080/simple-service/pathVariableNumberEndpoint
 http://localhost:8080/simple-service/pathVariableNumberEndpoint/12.67
+http://localhost:8080/simple-service/pathVariableLocalDateTimeEndpoint
+http://localhost:8080/simple-service/pathVariableLocalDateTimeEndpoint/2021-12-12T06:00:12
 http://localhost:8080/simple-service/loggingEndpoint

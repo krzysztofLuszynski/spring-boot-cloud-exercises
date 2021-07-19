@@ -2,9 +2,13 @@ package kluszynski.example.simpleservice.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 public class SimpleRESTController {
@@ -29,6 +33,14 @@ public class SimpleRESTController {
         LOGGER.info("PathVariable number value {}", number);
 
         return "Path variable (Number): " + number;
+    }
+
+    @GetMapping({"/pathVariableLocalDateTimeEndpoint", "/pathVariableLocalDateTimeEndpoint/{localDateTime}"})
+    public String pathVariableLocalDateTimeEndpoint(
+            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime localDateTime) {
+        LOGGER.info("PathVariable localDateTime value {}", localDateTime);
+
+        return "Path variable (LocalDateTime): " + localDateTime;
     }
 
     @GetMapping("/loggingEndpoint")
