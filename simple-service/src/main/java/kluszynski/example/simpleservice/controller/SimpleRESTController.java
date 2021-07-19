@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -42,6 +43,14 @@ public class SimpleRESTController {
 
         return "Path variable (LocalDateTime): " + localDateTime;
     }
+
+    @GetMapping({"/pathParameterStringEndpoint", "/pathParameterStringEndpoint"})
+    public String pathParameterStringEndpoint(@PathParam("stringParam") final String stringParam) {
+        LOGGER.info("PathParameter stringParam value {}", stringParam);
+
+        return "Path parameter (String): " + stringParam;
+    }
+
 
     @GetMapping("/loggingEndpoint")
     public String loggingEndpoint() {
