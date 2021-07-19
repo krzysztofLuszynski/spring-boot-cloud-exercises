@@ -124,6 +124,14 @@ public class SimpleRESTControllerTest {
         assertThat(response.getBody()).isEqualTo("Path parameter (LocalDateTime): 2021-12-12T06:00:12");
     }
 
+    @Test
+    public void loggingEndpoint() throws Exception {
+        final ResponseEntity<String> response = restTemplate.getForEntity(
+                getServiceUrl("loggingEndpoint"), String.class);
+
+        assertThat(response.getBody()).isEqualTo("OK");
+    }
+
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {
         return new URL("http://localhost:" + port + "/simple-service/" + endpointPath).toString();
