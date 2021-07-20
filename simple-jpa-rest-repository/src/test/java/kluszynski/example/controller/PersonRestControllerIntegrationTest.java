@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,7 +41,7 @@ class PersonRestControllerIntegrationTest {
     }
 
     @Test
-    void getPersonsNotExisting() throws MalformedURLException {
+    void getPersonsByIdNonExisting() throws MalformedURLException {
         final ResponseEntity<Person> response = restTemplate.getForEntity(
                 getServiceUrl("persons/1000"), Person.class);
 
@@ -50,6 +51,21 @@ class PersonRestControllerIntegrationTest {
                 .hasFieldOrPropertyWithValue("lastName", null)
                 .hasFieldOrPropertyWithValue("birthDate", null)
                 .hasFieldOrPropertyWithValue("heightInCentimeters", null);
+    }
+
+    @Test
+    void getPersonsById() throws MalformedURLException {
+        personJpaRepository.save(JACK_WHITE);
+
+        final ResponseEntity<Person> response = restTemplate.getForEntity(
+                getServiceUrl("persons/1"), Person.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody())
+                .hasFieldOrPropertyWithValue("firstName", JACK_WHITE.getFirstName())
+                .hasFieldOrPropertyWithValue("lastName", JACK_WHITE.getLastName())
+                .hasFieldOrPropertyWithValue("birthDate", JACK_WHITE.getBirthDate())
+                .hasFieldOrPropertyWithValue("heightInCentimeters", JACK_WHITE.getHeightInCentimeters());
     }
 
     @Test
@@ -86,7 +102,7 @@ class PersonRestControllerIntegrationTest {
         assertThat(getAllResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(getAllResponse.getBody()).hasSize(2);
 
-        assertThat(getAllResponse.getBody()[0])
+        assertThat(Objects.requireNonNull(getAllResponse.getBody())[0])
                 .hasFieldOrPropertyWithValue("firstName", JACK_WHITE.getFirstName())
                 .hasFieldOrPropertyWithValue("lastName", JACK_WHITE.getLastName())
                 .hasFieldOrPropertyWithValue("birthDate", JACK_WHITE.getBirthDate())
