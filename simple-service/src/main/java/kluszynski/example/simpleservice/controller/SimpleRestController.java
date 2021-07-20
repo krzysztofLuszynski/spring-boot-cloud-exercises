@@ -11,8 +11,8 @@ import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 
 @RestController
-public class SimpleRESTController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleRESTController.class);
+public class SimpleRestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleRestController.class);
 
     private static final String OK = "OK";
 

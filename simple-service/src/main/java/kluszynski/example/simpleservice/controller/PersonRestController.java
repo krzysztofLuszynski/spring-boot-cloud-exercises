@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-public class PersonRESTController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonRESTController.class);
+public class PersonRestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonRestController.class);
 
     @GetMapping("/persons/{id}")
-    public Person newPerson(@PathVariable String id) {
+    public Person getPerson(@PathVariable String id) {
         LOGGER.info("person {}", id);
 
         // returns mocked person
@@ -25,7 +25,7 @@ public class PersonRESTController {
     }
 
     @PostMapping("/persons")
-    public Person newPerson(@RequestBody Person person) {
+    public Person getPerson(@RequestBody Person person) {
         LOGGER.info("person {}", person);
 
         return person;

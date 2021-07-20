@@ -1,10 +1,10 @@
-package kluszynski.example.simpleservice;
+package kluszynski.example;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SimpleServiceApplicationTests {
+class SimpleJpaRestRepositoryApplicationTests {
 
 	@Test
 	void contextLoads() {

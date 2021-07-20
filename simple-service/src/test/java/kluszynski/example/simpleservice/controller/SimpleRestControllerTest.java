@@ -13,7 +13,7 @@ import java.net.URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SimpleRESTControllerTest {
+public class SimpleRestControllerTest {
     @LocalServerPort
     private int port;
 

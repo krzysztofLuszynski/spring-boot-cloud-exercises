@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PersonRESTControllerTest {
+public class PersonRestControllerTest {
     @LocalServerPort
     private int port;
 
