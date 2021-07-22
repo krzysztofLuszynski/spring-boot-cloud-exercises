@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-public class PersonRestController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonRestController.class);
+public class ManuallyImplementedPersonRestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManuallyImplementedPersonRestController.class);
 
     @Autowired
     private PersonJpaRepository personJpaRepository;
 
-    @PostMapping("/persons")
+    @PostMapping("/manually-implemented/persons")
     public Person addPerson(@RequestBody Person person) {
         LOGGER.info("Adding person {}", person);
 
@@ -29,14 +29,14 @@ public class PersonRestController {
         return person;
     }
 
-    @GetMapping("/persons")
+    @GetMapping("/manually-implemented/persons")
     public List<Person> getAllPersons() {
         LOGGER.info("Getting all persons");
 
         return personJpaRepository.findAll();
     }
 
-    @GetMapping("/persons/{id}")
+    @GetMapping("/manually-implemented/persons/{id}")
     public Person getPerson(@PathVariable Long id) {
         LOGGER.info("person id {}", id);
 

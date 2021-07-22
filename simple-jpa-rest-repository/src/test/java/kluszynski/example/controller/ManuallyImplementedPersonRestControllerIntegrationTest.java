@@ -20,7 +20,7 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PersonRestControllerIntegrationTest {
+class ManuallyImplementedPersonRestControllerIntegrationTest {
     private static final Person JACK_WHITE = new Person("Jack", "White",
             LocalDateTime.parse("2010-01-01T20:00:02"), 186L);
     private static final Person JOHN_FRUCIANTE = new Person("John", "Fruciante",
@@ -117,6 +117,6 @@ class PersonRestControllerIntegrationTest {
 
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {
-        return new URL("http://localhost:" + port + "/simple-jpa-rest-repository/" + endpointPath).toString();
+        return new URL("http://localhost:" + port + "/simple-jpa-rest-repository/manually-implemented/" + endpointPath).toString();
     }
 }
