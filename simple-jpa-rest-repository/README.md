@@ -24,4 +24,5 @@ curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/pe
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/2
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1000
+curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\", \"lastName\": \"White1\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1
 ```bash

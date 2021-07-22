@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,9 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ManuallyImplementedPersonRestControllerIntegrationTest {
-    private static final Person JACK_WHITE = new Person("Jack", "White",
+    private final Person JACK_WHITE = new Person("Jack", "White",
             LocalDateTime.parse("2010-01-01T20:00:02"), 186L);
-    private static final Person JOHN_FRUCIANTE = new Person("John", "Fruciante",
+    private final Person JOHN_FRUCIANTE = new Person("John", "Fruciante",
             LocalDateTime.parse("2000-01-01T20:00:02"), 190L);
 
     @LocalServerPort
@@ -41,7 +43,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
-    void getPersonsByIdNonExisting() throws MalformedURLException {
+    void getPersonByIdNonExisting() throws MalformedURLException {
         final ResponseEntity<Person> response = restTemplate.getForEntity(
                 getServiceUrl("persons/1000"), Person.class);
 
@@ -54,11 +56,12 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
-    void getPersonsById() throws MalformedURLException {
+    void getPersonById() throws MalformedURLException {
         personJpaRepository.save(JACK_WHITE);
+        final Long id = JACK_WHITE.getId();
 
         final ResponseEntity<Person> response = restTemplate.getForEntity(
-                getServiceUrl("persons/1"), Person.class);
+                getServiceUrl("persons/" + id), Person.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
@@ -115,6 +118,42 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
                 .hasFieldOrPropertyWithValue("heightInCentimeters", JOHN_FRUCIANTE.getHeightInCentimeters());
     }
 
+    @Test
+    void updatePersonByIdNonExistingId() throws MalformedURLException {
+        final HttpEntity<Person> request = new HttpEntity<>(new Person("", "", null, 0L));
+
+        final ResponseEntity<Person> putResponse =
+                restTemplate.exchange(getServiceUrl("persons/1000"),
+                        HttpMethod.PUT, request, Person.class);
+
+        assertThat(putResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(putResponse.getBody())
+                .hasFieldOrPropertyWithValue("firstName", null)
+                .hasFieldOrPropertyWithValue("lastName", null)
+                .hasFieldOrPropertyWithValue("birthDate", null)
+                .hasFieldOrPropertyWithValue("heightInCentimeters", null);
+    }
+
+    @Test
+    void updatePersonById() throws MalformedURLException {
+        personJpaRepository.save(JACK_WHITE);
+        final Long id = JACK_WHITE.getId();
+
+        final HttpEntity<Person> request = new HttpEntity<>(JOHN_FRUCIANTE);
+
+        final ResponseEntity<Person> putResponse =
+                restTemplate.exchange(getServiceUrl("persons/" + id),
+                        HttpMethod.PUT, request, Person.class);
+
+        restTemplate.put(getServiceUrl("persons/" + id), JOHN_FRUCIANTE);
+
+        assertThat(putResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(putResponse.getBody())
+                .hasFieldOrPropertyWithValue("firstName", JOHN_FRUCIANTE.getFirstName())
+                .hasFieldOrPropertyWithValue("lastName", JOHN_FRUCIANTE.getLastName())
+                .hasFieldOrPropertyWithValue("birthDate", JOHN_FRUCIANTE.getBirthDate())
+                .hasFieldOrPropertyWithValue("heightInCentimeters", JOHN_FRUCIANTE.getHeightInCentimeters());
+    }
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {
         return new URL("http://localhost:" + port + "/simple-jpa-rest-repository/manually-implemented/" + endpointPath).toString();

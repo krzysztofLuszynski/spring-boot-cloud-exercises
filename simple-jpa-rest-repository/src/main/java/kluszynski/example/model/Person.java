@@ -36,19 +36,39 @@ public class Person {
         this.heightInCentimeters = heightInCentimeters;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public LocalDateTime getBirthDate() {
         return birthDate;
     }
 
+    public void setBirthDate(LocalDateTime birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public Long getHeightInCentimeters() {
         return heightInCentimeters;
+    }
+
+    public void setHeightInCentimeters(Long heightInCentimeters) {
+        this.heightInCentimeters = heightInCentimeters;
     }
 }

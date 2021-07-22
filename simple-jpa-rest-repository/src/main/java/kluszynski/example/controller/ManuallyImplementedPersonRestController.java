@@ -38,9 +38,22 @@ public class ManuallyImplementedPersonRestController {
 
     @GetMapping("/manually-implemented/persons/{id}")
     public Person getPerson(@PathVariable Long id) {
-        LOGGER.info("person id {}", id);
+        LOGGER.info("get person with id {}", id);
 
         return personJpaRepository.getById(id);
+    }
+
+    @PutMapping("/manually-implemented/persons/{id}")
+    public Person updatePerson(@RequestBody Person person, @PathVariable Long id) {
+        LOGGER.info("update person with id {}", id);
+
+        final Person oldPerson = personJpaRepository.getById(id);
+        oldPerson.setFirstName(person.getFirstName());
+        oldPerson.setLastName(person.getLastName());
+        oldPerson.setBirthDate(person.getBirthDate());
+        oldPerson.setHeightInCentimeters(person.getHeightInCentimeters());
+
+        return personJpaRepository.save(oldPerson);
     }
 
     @ExceptionHandler({EntityNotFoundException.class})
