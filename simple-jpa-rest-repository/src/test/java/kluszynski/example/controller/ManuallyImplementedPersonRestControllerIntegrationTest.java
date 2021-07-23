@@ -1,8 +1,6 @@
 package kluszynski.example.controller;
 
 import kluszynski.example.model.Person;
-import kluszynski.example.repository.PersonJpaRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,11 +10,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,15 +32,8 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Autowired
-    private PersonJpaRepository personJpaRepository;
-
-    @BeforeEach
-    void cleanDatabase() {
-        personJpaRepository.deleteAll();
-    }
-
     @Test
+    @Sql("clean_database.sql")
     void getPersonByIdNonExisting() throws MalformedURLException {
         final ResponseEntity<Person> response = restTemplate.getForEntity(
                 getServiceUrl("persons/1000"), Person.class);
@@ -56,12 +47,10 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql({"clean_database.sql", "jack_white.sql"})
     void getPersonById() throws MalformedURLException {
-        personJpaRepository.save(JACK_WHITE);
-        final Long id = JACK_WHITE.getId();
-
         final ResponseEntity<Person> response = restTemplate.getForEntity(
-                getServiceUrl("persons/" + id), Person.class);
+                getServiceUrl("persons/1"), Person.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
@@ -72,6 +61,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql("clean_database.sql")
     void createPerson() throws MalformedURLException {
         final Person person = JACK_WHITE;
 
@@ -87,6 +77,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql("clean_database.sql")
     void getAllPersonsEmptyDatabase() throws Exception {
         final ResponseEntity<Person[]> getAllResponse = restTemplate.getForEntity(
                 getServiceUrl("persons"), Person[].class);
@@ -96,9 +87,8 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql({"clean_database.sql", "jack_white.sql", "john_fruciante.sql"})
     void getAllPersonsTwoPersons() throws Exception {
-        personJpaRepository.saveAll(Arrays.asList(JACK_WHITE, JOHN_FRUCIANTE));
-
         final ResponseEntity<Person[]> getAllResponse = restTemplate.getForEntity(
                 getServiceUrl("persons"), Person[].class);
 
@@ -119,6 +109,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql("clean_database.sql")
     void updatePersonByIdNonExistingId() throws MalformedURLException {
         final HttpEntity<Person> request = new HttpEntity<>(new Person("", "", null, 0L));
 
@@ -135,14 +126,12 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql({"clean_database.sql", "jack_white.sql"})
     void updatePersonById() throws MalformedURLException {
-        personJpaRepository.save(JACK_WHITE);
-        final Long id = JACK_WHITE.getId();
-
         final HttpEntity<Person> request = new HttpEntity<>(JOHN_FRUCIANTE);
 
         final ResponseEntity<Person> putResponse =
-                restTemplate.exchange(getServiceUrl("persons/" + id),
+                restTemplate.exchange(getServiceUrl("persons/1"),
                         HttpMethod.PUT, request, Person.class);
 
         assertThat(putResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -154,6 +143,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql("clean_database.sql")
     void deletePersonByIdNonExistingId() throws MalformedURLException {
         final ResponseEntity<Void> deleteResponse =
                 restTemplate.exchange(getServiceUrl("persons/1000"),
@@ -164,12 +154,10 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
+    @Sql({"clean_database.sql", "jack_white.sql"})
     void deletePersonById() throws MalformedURLException {
-        personJpaRepository.save(JACK_WHITE);
-        final Long id = JACK_WHITE.getId();
-
         final ResponseEntity<Void> deleteResponse =
-                restTemplate.exchange(getServiceUrl("persons/" + id),
+                restTemplate.exchange(getServiceUrl("persons/1"),
                         HttpMethod.DELETE, null, Void.class);
 
         assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
