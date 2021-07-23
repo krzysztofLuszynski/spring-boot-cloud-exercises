@@ -1,9 +1,6 @@
 package kluszynski.example;
 
 import kluszynski.example.model.Person;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.MalformedURLException;
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 public class FillInitialData {
     private static final int PORT = 8081;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public static void main(String[] args) throws Exception {
         final FillInitialData fillInitialData = new FillInitialData();
@@ -32,8 +29,7 @@ public class FillInitialData {
     }
 
     private void createPerson(final Person person) throws MalformedURLException {
-        final ResponseEntity<Person> postResponse = restTemplate.postForEntity(
-                getServiceUrl("persons"), person, Person.class);
+        restTemplate.postForEntity(getServiceUrl("persons"), person, Person.class);
     }
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {
