@@ -14,10 +14,13 @@ Use JDBC URL from spring-boot logs (attaching example log):
 
 ## Usage
 
-```bash
-# actuator
+### Actuator
+```
 curl -v http://localhost:8081/simple-jpa-rest-repository/actuator
+```
 
+###PersonRestController implemented manually
+```
 curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"Jack\", \"lastName\": \"White\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons
 curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"John\", \"lastName\": \"Fruciante\", \"birthDate\": \"2000-01-01T20:00:02\", \"heightInCentimeters\": 190 }" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons
@@ -25,6 +28,19 @@ curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/pe
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/2
 curl -v http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1000
 curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\", \"lastName\": \"White1\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1
-curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1000
 curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/simple-jpa-rest-repository/manually-implemented/persons/1000
+```
+
+###PersonRestController from spring-boot-data-rest
+```
+curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"Jack\", \"lastName\": \"White\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/simple-jpa-rest-repository/data-rest/persons
+curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"John\", \"lastName\": \"Fruciante\", \"birthDate\": \"2000-01-01T20:00:02\", \"heightInCentimeters\": 190 }" http://localhost:8081/simple-jpa-rest-repository/data-rest/persons
+curl -v http://localhost:8081/simple-jpa-rest-repository/data-rest/persons
+curl -v http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/1
+curl -v http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/2
+curl -v http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/1000
+curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\", \"lastName\": \"White1\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/simple-jpa-rest-repository/data-rest/persons/1000
 ```bash
