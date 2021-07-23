@@ -145,14 +145,35 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
                 restTemplate.exchange(getServiceUrl("persons/" + id),
                         HttpMethod.PUT, request, Person.class);
 
-        restTemplate.put(getServiceUrl("persons/" + id), JOHN_FRUCIANTE);
-
         assertThat(putResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(putResponse.getBody())
                 .hasFieldOrPropertyWithValue("firstName", JOHN_FRUCIANTE.getFirstName())
                 .hasFieldOrPropertyWithValue("lastName", JOHN_FRUCIANTE.getLastName())
                 .hasFieldOrPropertyWithValue("birthDate", JOHN_FRUCIANTE.getBirthDate())
                 .hasFieldOrPropertyWithValue("heightInCentimeters", JOHN_FRUCIANTE.getHeightInCentimeters());
+    }
+
+    @Test
+    void deletePersonByIdNonExistingId() throws MalformedURLException {
+        final ResponseEntity<Void> deleteResponse =
+                restTemplate.exchange(getServiceUrl("persons/1000"),
+                        HttpMethod.DELETE, null, Void.class);
+
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(deleteResponse.getBody()).isNull();
+    }
+
+    @Test
+    void deletePersonById() throws MalformedURLException {
+        personJpaRepository.save(JACK_WHITE);
+        final Long id = JACK_WHITE.getId();
+
+        final ResponseEntity<Void> deleteResponse =
+                restTemplate.exchange(getServiceUrl("persons/" + id),
+                        HttpMethod.DELETE, null, Void.class);
+
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(deleteResponse.getBody()).isNull();
     }
 
     private String getServiceUrl(final String endpointPath) throws MalformedURLException {

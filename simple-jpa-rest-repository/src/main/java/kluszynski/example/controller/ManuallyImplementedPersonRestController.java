@@ -5,6 +5,7 @@ import kluszynski.example.repository.PersonJpaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +57,14 @@ public class ManuallyImplementedPersonRestController {
         return personJpaRepository.save(oldPerson);
     }
 
-    @ExceptionHandler({EntityNotFoundException.class})
+    @DeleteMapping("/manually-implemented/persons/{id}")
+    public void deletePerson(@PathVariable Long id) {
+        LOGGER.info("delete person with id {}", id);
+
+        personJpaRepository.deleteById(id);
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class})
     void handleBadRequests(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
