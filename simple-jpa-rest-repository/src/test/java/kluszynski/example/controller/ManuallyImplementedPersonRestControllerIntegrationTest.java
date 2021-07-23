@@ -72,13 +72,13 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     }
 
     @Test
-    void addPerson() throws MalformedURLException {
+    void createPerson() throws MalformedURLException {
         final Person person = JACK_WHITE;
 
         final ResponseEntity<Person> postResponse = restTemplate.postForEntity(
                 getServiceUrl("persons"), person, Person.class);
 
-        assertThat(postResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(postResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(postResponse.getBody())
                 .hasFieldOrPropertyWithValue("firstName", person.getFirstName())
                 .hasFieldOrPropertyWithValue("lastName", person.getLastName())

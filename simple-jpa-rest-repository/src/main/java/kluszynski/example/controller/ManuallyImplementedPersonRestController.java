@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,12 +23,12 @@ public class ManuallyImplementedPersonRestController {
     private PersonJpaRepository personJpaRepository;
 
     @PostMapping("/manually-implemented/persons")
-    public Person addPerson(@RequestBody Person person) {
+    public ResponseEntity<Person>  createPerson(@RequestBody Person person) {
         LOGGER.info("Adding person {}", person);
 
         personJpaRepository.save(person);
 
-        return person;
+        return new ResponseEntity<>(person, HttpStatus.CREATED);
     }
 
     @GetMapping("/manually-implemented/persons")
