@@ -50,7 +50,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     @Sql({"clean_database.sql", "jack_white.sql"})
     void getPersonById() throws MalformedURLException {
         final ResponseEntity<Person> response = restTemplate.getForEntity(
-                getServiceUrl("persons/1"), Person.class);
+                getServiceUrl("persons/100"), Person.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody())
@@ -131,7 +131,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
         final HttpEntity<Person> request = new HttpEntity<>(JOHN_FRUCIANTE);
 
         final ResponseEntity<Person> putResponse =
-                restTemplate.exchange(getServiceUrl("persons/1"),
+                restTemplate.exchange(getServiceUrl("persons/100"),
                         HttpMethod.PUT, request, Person.class);
 
         assertThat(putResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -157,7 +157,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
     @Sql({"clean_database.sql", "jack_white.sql"})
     void deletePersonById() throws MalformedURLException {
         final ResponseEntity<Void> deleteResponse =
-                restTemplate.exchange(getServiceUrl("persons/1"),
+                restTemplate.exchange(getServiceUrl("persons/100"),
                         HttpMethod.DELETE, null, Void.class);
 
         assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
