@@ -172,7 +172,7 @@ class ManuallyImplementedPersonRestControllerIntegrationTest {
                 restTemplate.exchange(getServiceUrl("persons/" + id),
                         HttpMethod.DELETE, null, Void.class);
 
-        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         assertThat(deleteResponse.getBody()).isNull();
     }
 

@@ -55,14 +55,18 @@ public class ManuallyImplementedPersonRestController {
         oldPerson.setBirthDate(person.getBirthDate());
         oldPerson.setHeightInCentimeters(person.getHeightInCentimeters());
 
+        // returns 200 because body is returned
         return personJpaRepository.save(oldPerson);
     }
 
     @DeleteMapping("/manually-implemented/persons/{id}")
-    public void deletePerson(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
         LOGGER.info("delete person with id {}", id);
 
         personJpaRepository.deleteById(id);
+
+        // returns 204 because no body returned
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class})
