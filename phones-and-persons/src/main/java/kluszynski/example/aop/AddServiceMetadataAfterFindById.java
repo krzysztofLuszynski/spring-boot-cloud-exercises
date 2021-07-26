@@ -27,7 +27,7 @@ public class AddServiceMetadataAfterFindById {
     @Autowired
     private PersonJpaRepository personJpaRepository;
 
-    @AfterReturning(value = "findById()", returning = "abstractEntity")
+    @AfterReturning(value = "findById()", returning = "abstractEntityObject")
     public void addServiceMetadata(final Object abstractEntityObject) {
         if (abstractEntityObject instanceof Optional) {
             @SuppressWarnings("unchecked")
