@@ -6,7 +6,7 @@ Will be called from another REST services.
 
 ## Database logging
 
-To login into H2 database use link: http://localhost:8081/phones-and-persons/h2-console
+To login into H2 database use link: http://localhost:8082/phones-and-persons/h2-console
 
 Use JDBC URL from spring-boot logs (attaching example log):
 ```
@@ -17,18 +17,18 @@ Use JDBC URL from spring-boot logs (attaching example log):
 
 ### Actuator
 ```
-curl -v http://localhost:8081/phones-and-persons/actuator
+curl -v http://localhost:8082/phones-and-persons/actuator
 ```
 
 ###PersonRestController from spring-boot-data-rest
 ```
-curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"Jack\", \"lastName\": \"White\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/phones-and-persons/data-rest/persons
-curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"John\", \"lastName\": \"Fruciante\", \"birthDate\": \"2000-01-01T20:00:02\", \"heightInCentimeters\": 190 }" http://localhost:8081/phones-and-persons/data-rest/persons
-curl -v http://localhost:8081/phones-and-persons/data-rest/persons
-curl -v http://localhost:8081/phones-and-persons/data-rest/persons/1
-curl -v http://localhost:8081/phones-and-persons/data-rest/persons/2
-curl -v http://localhost:8081/phones-and-persons/data-rest/persons/1000
-curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\", \"lastName\": \"White1\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8081/phones-and-persons/data-rest/persons/1
-curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/phones-and-persons/data-rest/persons/1
-curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8081/phones-and-persons/data-rest/persons/1000
+curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"Jack\", \"lastName\": \"White\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8082/phones-and-persons/persons
+curl -v POST -H "Content-Type: application/json" -d "{\"firstName\": \"John\", \"lastName\": \"Fruciante\", \"birthDate\": \"2000-01-01T20:00:02\", \"heightInCentimeters\": 190 }" http://localhost:8082/phones-and-persons/persons
+curl -v http://localhost:8082/phones-and-persons/persons
+curl -v http://localhost:8082/phones-and-persons/persons/1
+curl -v http://localhost:8082/phones-and-persons/persons/2
+curl -v http://localhost:8082/phones-and-persons/persons/1000
+curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\", \"lastName\": \"White1\", \"birthDate\": \"2010-01-01T20:00:02\", \"heightInCentimeters\": 186 }" http://localhost:8082/phones-and-persons/persons/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/persons/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/persons/1000
 ```bash
