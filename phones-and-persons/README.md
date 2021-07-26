@@ -32,3 +32,16 @@ curl -v -X PUT -H "Content-Type: application/json" -d "{\"firstName\": \"Jack1\"
 curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/persons/1
 curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/persons/1000
 ```bash
+
+###PhoneRestController from spring-boot-data-rest
+```
+curl -v POST -H "Content-Type: application/json" -d "{\"countryPrefix\": \"20\", \"number\": \"123456789\" }" http://localhost:8082/phones-and-persons/phones
+curl -v POST -H "Content-Type: application/json" -d "{\"countryPrefix\": \"30\", \"number\": \"987654321\" }" http://localhost:8082/phones-and-persons/phones
+curl -v http://localhost:8082/phones-and-persons/phones
+curl -v http://localhost:8082/phones-and-persons/phones/1
+curl -v http://localhost:8082/phones-and-persons/phones/2
+curl -v http://localhost:8082/phones-and-persons/phones/1000
+curl -v -X PUT -H "Content-Type: application/json" -d "{\"countryPrefix\": \"21\", \"number\": \"234567890\" }" http://localhost:8082/phones-and-persons/phones/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/phones/1
+curl -v -X DELETE -H "Content-Type: application/json" http://localhost:8082/phones-and-persons/phones/1000
+```bash

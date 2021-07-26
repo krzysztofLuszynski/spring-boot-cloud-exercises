@@ -26,6 +26,7 @@ public class Person {
     @Column(name = "HEIGHT_IN_CENTIMETERS")
     private Long heightInCentimeters;
 
+    // for JPA only
     protected Person() {}
 
     public Person(final String firstName, final String lastName,
@@ -44,7 +45,7 @@ public class Person {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -52,7 +53,7 @@ public class Person {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
@@ -60,7 +61,7 @@ public class Person {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(final LocalDateTime birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -68,7 +69,7 @@ public class Person {
         return heightInCentimeters;
     }
 
-    public void setHeightInCentimeters(Long heightInCentimeters) {
+    public void setHeightInCentimeters(final Long heightInCentimeters) {
         this.heightInCentimeters = heightInCentimeters;
     }
 }
