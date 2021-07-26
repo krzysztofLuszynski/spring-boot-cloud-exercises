@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Person {
+public class Person extends AbstractEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;

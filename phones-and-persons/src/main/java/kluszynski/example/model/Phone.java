@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Phone {
+public class Phone extends AbstractEntity {
     @Id
     @GeneratedValue(generator = "phone_id_generator", strategy= GenerationType.SEQUENCE)
     @SequenceGenerator(name = "phone_id_generator", sequenceName = "phone_seq", allocationSize = 1)
