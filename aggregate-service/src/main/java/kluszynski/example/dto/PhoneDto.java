@@ -1,8 +1,10 @@
 package kluszynski.example.dto;
 
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
+@NoArgsConstructor
 public class PhoneDto {
     String countryPrefix;
     String number;

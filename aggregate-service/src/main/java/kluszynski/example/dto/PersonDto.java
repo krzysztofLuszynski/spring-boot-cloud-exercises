@@ -1,13 +1,15 @@
 package kluszynski.example.dto;
 
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Value
+@Data
+@NoArgsConstructor
 public class PersonDto {
     String firstName;
     String lastName;
     LocalDateTime birthDate;
-    Long heighInCentimeters;
+    Long heightInCentimeters;
 }
