@@ -1,2 +1,3 @@
 include 'simple-service'
 include 'simple-jpa-rest-repository'
+include 'phones-and-persons'
