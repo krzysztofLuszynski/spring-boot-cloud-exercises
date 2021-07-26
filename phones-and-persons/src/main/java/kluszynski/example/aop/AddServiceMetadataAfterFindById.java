@@ -16,7 +16,7 @@ import java.util.Optional;
 @Component
 @Aspect
 public class AddServiceMetadataAfterFindById {
-    private Logger LOGGER = LoggerFactory.getLogger(AddServiceMetadataAfterFindById.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(AddServiceMetadataAfterFindById.class);
 
     @Value("${server.servlet.contextPath}:${server.port}")
     private String description;
@@ -28,12 +28,14 @@ public class AddServiceMetadataAfterFindById {
     private PersonJpaRepository personJpaRepository;
 
     @AfterReturning(value = "findById()", returning = "abstractEntity")
-    public void addServiceMetadata(final Object abstractEntity) {
-        if (abstractEntity instanceof Optional) {
-            final Optional<AbstractEntity> person = (Optional<AbstractEntity>) abstractEntity;
-            (person.get()).setServiceMetadata(description);
-
-            LOGGER.info("Updated serviceMetadata: {} on {}",  description, person.get());
+    public void addServiceMetadata(final Object abstractEntityObject) {
+        if (abstractEntityObject instanceof Optional) {
+            @SuppressWarnings("unchecked")
+            final Optional<AbstractEntity> abstractEntity = (Optional<AbstractEntity>) abstractEntityObject;
+            if (abstractEntity.isPresent()) {
+                (abstractEntity.get()).setServiceMetadata(description);
+                LOGGER.info("Updated serviceMetadata: {} on {}", description, abstractEntity.get());
+            }
         }
     }
 }
