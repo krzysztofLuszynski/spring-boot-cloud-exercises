@@ -10,5 +10,7 @@ curl -v http://localhost:8083/aggregate-service/actuator
 
 ### CallUsingRestTemplateController
 ```
-http://localhost:8083/aggregate-service/rest-template/call
+curl -v http://localhost:8083/aggregate-service/rest-template/call?personId=1000&phoneId=3
+curl -v http://localhost:8083/aggregate-service/rest-template/call?personId=4&phoneId=3
+
 ```
