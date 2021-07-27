@@ -12,4 +12,5 @@ public class PersonDto {
     String lastName;
     LocalDateTime birthDate;
     Long heightInCentimeters;
+    String serviceMetadata;
 }

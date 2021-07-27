@@ -10,6 +10,7 @@ dependencies {
 	implementation "org.hibernate.validator:hibernate-validator:6.1.5.Final"
 
 	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
+	implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 }
 
 dependencyManagement {

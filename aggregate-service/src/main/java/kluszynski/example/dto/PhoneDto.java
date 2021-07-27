@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class PhoneDto {
     String countryPrefix;
     String number;
+    String serviceMetadata;
 }
