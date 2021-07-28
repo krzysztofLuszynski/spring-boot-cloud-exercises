@@ -1,4 +1,4 @@
-package kluszynski.example.controller;
+package kluszynski.example.controller.loadbalancer;
 
 import kluszynski.example.dto.CallResultDto;
 import kluszynski.example.dto.PersonDto;
@@ -14,19 +14,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Scope;
 import javax.validation.constraints.NotNull;
 import javax.websocket.server.PathParam;
 
 @RestController
 @Validated
-public class CallUsingRestTemplateController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CallUsingRestTemplateController.class);
+public class CallUsingRestTemplateLoadBalancerEurekaController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CallUsingRestTemplateLoadBalancerEurekaController.class);
 
     @Autowired
-    @Qualifier("cleanRestTemplate")
+    @Qualifier("loadBalancedRestTemplate")
     private RestTemplate restTemplate;
 
-    @GetMapping("/rest-template/call")
+    @GetMapping("/rest-template-load-balancer-eureka/call")
     public CallResultDto call(
             @PathParam("personId") @NotNull(message = "is mandatory") final Long personId,
             @PathParam("phoneId") @NotNull(message = "is mandatory") final Long phoneId) {
@@ -42,7 +43,7 @@ public class CallUsingRestTemplateController {
         LOGGER.info("personId: {}", personId);
 
         final ResponseEntity<PersonDto> response = restTemplate.getForEntity(
-                "http://localhost:8082/phones-and-persons/persons/" + personId, PersonDto.class);
+                "http://phones-and-persons/phones-and-persons/persons/" + personId, PersonDto.class);
 
         if (response.getStatusCode() != HttpStatus.OK) {
             LOGGER.info("status from call to person: {}", response.getStatusCode());
@@ -55,7 +56,7 @@ public class CallUsingRestTemplateController {
         LOGGER.info("phoneId: {}", phoneId);
 
         final ResponseEntity<PhoneDto> response = restTemplate.getForEntity(
-                "http://localhost:8082/phones-and-persons/phones/" + phoneId, PhoneDto.class);
+                "http://phones-and-persons/phones-and-persons/phones/" + phoneId, PhoneDto.class);
 
         if (response.getStatusCode() != HttpStatus.OK) {
             LOGGER.info("status from call to phone: {}", response.getStatusCode());
