@@ -1,4 +1,4 @@
-package kluszynski.example.controller;
+package kluszynski.example.controller.feign;
 
 import kluszynski.example.dto.PersonDto;
 import kluszynski.example.dto.PhoneDto;
