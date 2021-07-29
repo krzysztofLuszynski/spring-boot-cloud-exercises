@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AddServiceMetadataAfterFindById {
     private final Logger LOGGER = LoggerFactory.getLogger(AddServiceMetadataAfterFindById.class);
 
-    @Value("${server.servlet.contextPath}:${server.port}")
+    @Value("${server.servlet.contextPath}:${server.port} ${suffix}")
     private String description;
 
     @Pointcut("execution(* kluszynski.example.repository.*.findById*(..))")
