@@ -7,10 +7,17 @@ Config service.
 Run from the upper folder.
 
 ```
-gradle :zipkin-service:bootRun
+gradle :config-service:bootRun
 ```
 
 ```
-# eureka service
-curl -v http://localhost:9411/zipkin
+# config service
+curl -v http://localhost:8888/phones-and-persons/default
+curl -v http://localhost:8888/phones-and-persons/dev
+curl -v http://localhost:8888/phones-and-persons/qa
+
+curl -v http://localhost:8888/aggregate-service/default
+curl -v http://localhost:8888/aggregate-service/dev
+curl -v http://localhost:8888/aggregate-service/qa
+
 ```
