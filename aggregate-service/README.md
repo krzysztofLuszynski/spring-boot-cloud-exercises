@@ -10,7 +10,7 @@ gradle :eureka-service:bootRun
 gradle :phones-and-persons:bootRun --args="--server.port=8082"
 gradle :phones-and-persons:bootRun --args="--server.port=9082"
 gradle :phones-and-persons:bootRun --args="--server.port=10082"
-gradle :aggregated-service:bootRun
+gradle :aggregate-service:bootRun
 ```
 
 ### Actuator
