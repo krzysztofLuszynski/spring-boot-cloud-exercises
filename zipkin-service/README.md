@@ -11,6 +11,6 @@ gradle :zipkin-service:bootRun
 ```
 
 ```
-# eureka service
+# zipkin service
 curl -v http://localhost:9411/zipkin
 ```
